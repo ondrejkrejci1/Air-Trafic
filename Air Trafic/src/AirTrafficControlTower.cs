@@ -7,7 +7,10 @@
 
         private readonly object _lockObj = new object();
 
-        public AirTrafficControlTower(List<Airplane> airplanes)
+        private readonly Thread controllTowerThread;
+        private bool isRunning = true;
+
+        public AirTrafficControlTower()
         {
             AirplanesToProcess = new AirplanePriorityQueue();
             Runways = new List<Runway>() {
@@ -17,10 +20,11 @@
                 new Runway("Western runway (4)", ReportFromRunway)
             };
 
-            foreach (var airplane in airplanes)
+            controllTowerThread = new Thread(Run)
             {
-                AcceptAirplane(airplane);
-            }
+                IsBackground = true
+            };
+            controllTowerThread.Start();
         }
 
         public void AcceptAirplane(Airplane airplaneToAdd)
@@ -30,10 +34,10 @@
 
         public void ReportFromRunway(string report)
         {
-            Console.WriteLine(report);
+            Console.WriteLine($"\n----- {report} -----");
         }
 
-        public Airplane GetAirplaneToProcess()
+        public Airplane? GetAirplaneToProcess()
         {
             if (AirplanesToProcess.Count > 0)
             {
@@ -54,27 +58,32 @@
             }
         }
 
+        public List<Airplane> GetAllAirplanesToProcess()
+        {
+            return AirplanesToProcess.ToList();
+        }
+
         public void Run()
         {
-            while (AirplanesToProcess.Count > 0)
+            while (isRunning)
             {
                 foreach (Runway runway in Runways)
                 {
                     if (runway.AssignedAirplane == null)
                     {
-                        Airplane airplaneToProcess = GetAirplaneToProcess();
+                        Airplane? airplaneToProcess = GetAirplaneToProcess();
                         if (airplaneToProcess != null)
                         {
                             runway.AssignAircraft(airplaneToProcess);
                         }
                     }
                 }
-
-
-
             }
         }
-    }
 
-    
+        public void Stop()
+        {
+            isRunning = false;
+        }
+    }    
 }

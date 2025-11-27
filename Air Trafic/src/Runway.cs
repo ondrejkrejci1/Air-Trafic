@@ -7,7 +7,7 @@ namespace Air_Trafic.src
     public class Runway
     {
         private readonly Thread runwayThread;
-        private volatile bool running = true;
+        private bool isRunning = true;
         public Airplane? AssignedAirplane { get; private set; }
         private Action<string> reportCallback;
 
@@ -31,7 +31,7 @@ namespace Air_Trafic.src
 
         private void ProcessAirplane()
         {
-            while (running)
+            while (isRunning)
             {
                 if (AssignedAirplane != null)
                 {
@@ -50,7 +50,7 @@ namespace Air_Trafic.src
 
         public void Stop()
         {
-            running = false;            
+            isRunning = false;            
         }
     }
 }

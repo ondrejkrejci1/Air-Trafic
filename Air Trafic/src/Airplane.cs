@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Air_Trafic.src
+﻿namespace Air_Trafic.src
 {
 
     public class Airplane
     {
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public FlightType FlightType { get; private set; }
 
-        public AirplaneOperation Operation { get; set; }
+        public FlightOperation Operation { get; set; }
 
-        public Airplane(int id, FlightType flightType, AirplaneOperation operation)
+        public Airplane(int id, FlightType flightType, FlightOperation operation)
         {
             ID = id;
             FlightType = flightType;

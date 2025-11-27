@@ -44,6 +44,11 @@
             get { return Airplanes.Count; }
         }
 
+        public List<Airplane> ToList()
+        {
+            return new List<Airplane>(Airplanes);
+        }
+
         private static int GetPriority(FlightType flightType)
         {
             switch (flightType)
@@ -58,6 +63,8 @@
                     return int.MaxValue;
             }
         }
+
+        
 
 
     }
