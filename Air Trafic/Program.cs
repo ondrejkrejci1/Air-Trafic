@@ -1,14 +1,13 @@
-﻿using Air_Trafic.src;
+﻿using Air_Traffic.Command;
 
-namespace Air_Trafic
+namespace Air_Traffic
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             MyConsole console = new MyConsole();
             console.Start();
-
         }
 
     }

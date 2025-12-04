@@ -1,4 +1,6 @@
-﻿namespace Air_Trafic.src.Commands
+﻿using Air_Traffic.Aircraft;
+
+namespace Air_Traffic.Command.Commands
 {
     public class AirplanesInSystem : ICommand
     {

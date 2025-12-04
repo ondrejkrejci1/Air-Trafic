@@ -1,4 +1,4 @@
-﻿namespace Air_Trafic.src
+﻿namespace Air_Traffic.Aircraft
 {
     public enum FlightOperation
     {

@@ -1,4 +1,6 @@
-﻿namespace Air_Trafic.src
+﻿using Air_Traffic.Aircraft;
+
+namespace Air_Traffic.AirControl
 {
     public class AirplanePriorityQueue
     {
@@ -12,23 +14,26 @@
 
         public void Enqueue(Airplane airplaneToEnqueue)
         {
-            if(Airplanes.Count == 0)
+            if (Airplanes.Count == 0)
             {
                 Airplanes.Add(airplaneToEnqueue);
                 return;
             }
 
-            foreach (Airplane airplane in Airplanes) 
+            int newPriority = GetPriority(airplaneToEnqueue.FlightType);
+
+            for (int i = 0; i < Airplanes.Count; i++)
             {
-                if (GetPriority(airplane.FlightType) > GetPriority(airplaneToEnqueue.FlightType))
+                int currentPriority = GetPriority(Airplanes[i].FlightType);
+
+                if (newPriority < currentPriority)
                 {
-                    Airplanes.Insert(Airplanes.IndexOf(airplane), airplaneToEnqueue);
-                } else
-                {
-                    Airplanes.Add(airplaneToEnqueue);
+                    Airplanes.Insert(i, airplaneToEnqueue);
+                    return;
                 }
-                return;
             }
+
+            Airplanes.Add(airplaneToEnqueue);
 
         }
 
@@ -64,7 +69,7 @@
             }
         }
 
-        
+
 
 
     }

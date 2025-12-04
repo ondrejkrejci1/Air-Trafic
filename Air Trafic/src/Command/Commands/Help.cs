@@ -1,4 +1,4 @@
-﻿namespace Air_Trafic.src.Commands
+﻿namespace Air_Traffic.Command.Commands
 {
     public class Help : ICommand
     {

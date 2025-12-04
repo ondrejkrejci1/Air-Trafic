@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Threading;
+﻿using Air_Traffic.Aircraft;
 
-namespace Air_Trafic.src
+namespace Air_Traffic.AirControl
 {
     public class Runway
     {
@@ -13,10 +11,13 @@ namespace Air_Trafic.src
 
         public string Name { get; private set; }
 
-        public Runway(string name, Action<string> reportCallback)
+        private AirTrafficControlTower controlTower;
+
+        public Runway(string name, Action<string> reportCallback, AirTrafficControlTower controlTower)
         {
             Name = name;
             this.reportCallback = reportCallback;
+            this.controlTower = controlTower;
             runwayThread = new Thread(ProcessAirplane)
             {
                 IsBackground = true
@@ -44,13 +45,17 @@ namespace Air_Trafic.src
 
                     AssignedAirplane = null;
                 }
+                else
+                {
+                    AssignedAirplane = controlTower.GetAirplaneToProcess();
+                }
                 Thread.Sleep(100);
             }
         }
 
         public void Stop()
         {
-            isRunning = false;            
+            isRunning = false;
         }
     }
 }

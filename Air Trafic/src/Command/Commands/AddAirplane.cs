@@ -1,4 +1,6 @@
-﻿namespace Air_Trafic.src.Commands
+﻿using Air_Traffic.Aircraft;
+
+namespace Air_Traffic.Command.Commands
 {
     public class AddAirplane : ICommand
     {
@@ -12,7 +14,7 @@
         {
             Console.Write("Creating new airplane to system -\n\t" +
                 "·Enter airplane flight type:\n\t·(1-NORMAL; 2-EMERGENCY; 3-GOVERNMENTAL)\n\t- ");
-            
+
             string? flightTypeInput = Console.ReadLine();
             flightTypeInput = flightTypeInput.Trim();
             flightTypeInput = flightTypeInput.ToLower();

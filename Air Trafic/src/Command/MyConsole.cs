@@ -1,6 +1,8 @@
-﻿using Air_Trafic.src.Commands;
+﻿using Air_Traffic.AirControl;
+using Air_Traffic.Command.Commands;
+using Air_Traffic.Aircraft;
 
-namespace Air_Trafic.src
+namespace Air_Traffic.Command
 {
     public class MyConsole
     {
@@ -61,7 +63,7 @@ namespace Air_Trafic.src
 
         public void AddAirplane(Airplane airplane)
         {
-            if(airplane.ID == -1)
+            if (airplane.ID == -1)
             {
                 airplane.ID = ++airplaneCounter;
                 controlTower?.AcceptAirplane(airplane);
