@@ -35,9 +35,9 @@ namespace Air_Traffic.AirControl
 
         public Airplane? GetAirplaneToProcess()
         {
-            if (AirplanesToProcess.Count > 0)
+            lock (_lockObj)
             {
-                lock (_lockObj)
+                if (AirplanesToProcess.Count > 0)
                 {
                     return AirplanesToProcess.Dequeue();
                 }

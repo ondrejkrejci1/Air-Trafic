@@ -6,6 +6,8 @@ namespace Air_Traffic.AirControl
     {
         public List<Airplane> Airplanes { get; private set; }
 
+        private readonly object _lockObj = new object();
+
         public AirplanePriorityQueue()
         {
             Airplanes = new List<Airplane>();
@@ -39,9 +41,12 @@ namespace Air_Traffic.AirControl
 
         public Airplane Dequeue()
         {
-            Airplane airplaneToDequeue = Airplanes[0];
-            Airplanes.RemoveAt(0);
-            return airplaneToDequeue;
+            lock (_lockObj)
+            {
+                Airplane airplaneToDequeue = Airplanes[0];
+                Airplanes.RemoveAt(0);
+                return airplaneToDequeue;
+            }
         }
 
         public int Count
